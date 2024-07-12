@@ -37,7 +37,10 @@ Puedes instalar las dependencias utilizando `pip`:
 
 ```bash
 pip install numpy opencv-python tensorflow keras pyaudio pyttsx3 pynput screeninfo
-Estructura del Proyecto
+```
+
+## Estructura del Proyecto
+
 El proyecto está organizado de la siguiente manera:
 
 bash
@@ -53,7 +56,9 @@ Copiar código
 │   └── utils.py                  # Utilidades varias
 ├── README.md                     # Este archivo
 └── requirements.txt              # Archivo de requisitos
-Preparación de Datos
+
+## Preparación de Datos
+
 Para entrenar la red neuronal, necesitas un conjunto de datos de imágenes de rostros. Puedes usar datasets públicos o tus propios datos. Las imágenes deben estar organizadas en subdirectorios, cada uno representando una clase (persona). Ejemplo:
 
 kotlin
@@ -68,7 +73,9 @@ data/
 │   ├── image2.jpg
 │   └── ...
 └── ...
-Entrenamiento del Modelo
+
+## Entrenamiento del Modelo
+
 Para entrenar el modelo de reconocimiento facial, ejecuta el script de entrenamiento que se encuentra en deep_neural_network.py:
 
 python
@@ -88,7 +95,9 @@ nn.train(X_train, Y_train, learning_rate=0.01, epochs=1000)
 # Guardar el modelo entrenado
 import numpy as np
 np.save('models/face_recognition_parameters.npy', nn.parameters)
-Uso del Modelo
+
+## Uso del Modelo
+
 Para utilizar el modelo entrenado en el reconocimiento facial, carga el modelo y usa la función de predicción:
 
 python
@@ -107,22 +116,22 @@ new_img = cv2.resize(new_img, img_size).reshape(-1, 1) / 255.0
 prediction = predict_face(nn, new_img)
 predicted_class = class_names[prediction[0]]
 print(f'Predicted class: {predicted_class}')
-Evaluación y Resultados
+
+## Evaluación y Resultados
+
 Para evaluar el rendimiento del modelo, se pueden usar métricas como la precisión, la exactitud y la pérdida en el conjunto de validación. Ejemplo:
 
 python
 Copiar código
 test_loss, test_acc = model.evaluate(validation_generator, steps=50)
 print('Test accuracy:', test_acc)
-Contribuciones
-Las contribuciones son bienvenidas. Por favor, sigue los siguientes pasos para contribuir:
 
-Bifurca el repositorio
-Crea una rama (git checkout -b feature/nueva-funcionalidad)
-Haz commit de tus cambios (git commit -am 'Añadir nueva funcionalidad')
-Empuja la rama (git push origin feature/nueva-funcionalidad)
-Abre un Pull Request
-Licencia
+## Contribuciones
+
+Las contribuciones no son bienvenidas
+
+## Licencia
+
 Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
 
 Autor: José Teodosio Lorente Vallecillos
