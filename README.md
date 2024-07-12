@@ -43,8 +43,6 @@ pip install numpy opencv-python tensorflow keras pyaudio pyttsx3 pynput screenin
 
 El proyecto está organizado de la siguiente manera:
 
-bash
-Copiar código
 .
 ├── data/                         # Directorio de datos
 ├── models/                       # Directorio para guardar modelos entrenados
@@ -61,8 +59,6 @@ Copiar código
 
 Para entrenar la red neuronal, necesitas un conjunto de datos de imágenes de rostros. Puedes usar datasets públicos o tus propios datos. Las imágenes deben estar organizadas en subdirectorios, cada uno representando una clase (persona). Ejemplo:
 
-kotlin
-Copiar código
 data/
 ├── person1/
 │   ├── image1.jpg
@@ -78,8 +74,6 @@ data/
 
 Para entrenar el modelo de reconocimiento facial, ejecuta el script de entrenamiento que se encuentra en deep_neural_network.py:
 
-python
-Copiar código
 from src.deep_neural_network import DeepNeuralNetwork, load_data
 
 data_path = 'data/'
@@ -100,8 +94,6 @@ np.save('models/face_recognition_parameters.npy', nn.parameters)
 
 Para utilizar el modelo entrenado en el reconocimiento facial, carga el modelo y usa la función de predicción:
 
-python
-Copiar código
 from src.deep_neural_network import DeepNeuralNetwork, predict_face
 import cv2
 
@@ -121,8 +113,6 @@ print(f'Predicted class: {predicted_class}')
 
 Para evaluar el rendimiento del modelo, se pueden usar métricas como la precisión, la exactitud y la pérdida en el conjunto de validación. Ejemplo:
 
-python
-Copiar código
 test_loss, test_acc = model.evaluate(validation_generator, steps=50)
 print('Test accuracy:', test_acc)
 
@@ -141,22 +131,3 @@ Fecha: 12/08/2024
 Universidad: Universidad de Granada
 
 Tutor: Antonio Bailon
-
-markdown
-Copiar código
-
-### Descripción de las Secciones
-
-1. **Descripción**: Breve introducción del proyecto y sus objetivos.
-2. **Tabla de Contenidos**: Índice para facilitar la navegación del documento.
-3. **Introducción**: Explicación del propósito del proyecto y su relevancia.
-4. **Requisitos**: Lista de dependencias necesarias y cómo instalarlas.
-5. **Estructura del Proyecto**: Descripción de la estructura de directorios y archivos del proyecto.
-6. **Preparación de Datos**: Instrucciones sobre cómo organizar y preparar los datos de entrenamiento.
-7. **Entrenamiento del Modelo**: Explicación de cómo entrenar la red neuronal con el conjunto de datos preparado.
-8. **Uso del Modelo**: Ejemplo de cómo utilizar el modelo entrenado para hacer predicciones.
-9. **Evaluación y Resultados**: Información sobre cómo evaluar el rendimiento del modelo.
-10. **Contribuciones**: Instrucciones para contribuir al proyecto.
-11. **Licencia**: Información sobre la licencia del proyecto.
-
-Este README proporciona una guía completa para cualquier usuario o desarrollador que desee entender, usar o contribuir a tu proyecto de reconocimiento facial.
