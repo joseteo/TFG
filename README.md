@@ -74,7 +74,7 @@ data/
 
 Para entrenar el modelo de reconocimiento facial, ejecuta el script de entrenamiento que se encuentra en deep_neural_network.py:
 
-```
+```python
 from src.deep_neural_network import DeepNeuralNetwork, load_data
 
 data_path = 'data/'
@@ -89,7 +89,7 @@ nn.train(X_train, Y_train, learning_rate=0.01, epochs=1000)
 ```
 
 # Guardar el modelo entrenado
-```
+```python
 import numpy as np
 np.save('models/face_recognition_parameters.npy', nn.parameters)
 ```
@@ -98,7 +98,7 @@ np.save('models/face_recognition_parameters.npy', nn.parameters)
 
 Para utilizar el modelo entrenado en el reconocimiento facial, carga el modelo y usa la función de predicción:
 
-```
+```python
 from src.deep_neural_network import DeepNeuralNetwork, predict_face
 import cv2
 
@@ -119,7 +119,7 @@ print(f'Predicted class: {predicted_class}')
 
 Para evaluar el rendimiento del modelo, se pueden usar métricas como la precisión, la exactitud y la pérdida en el conjunto de validación. Ejemplo:
 
-```
+```python
 test_loss, test_acc = model.evaluate(validation_generator, steps=50)
 print('Test accuracy:', test_acc)
 ```
