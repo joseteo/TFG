@@ -42,7 +42,7 @@ pip install numpy opencv-python tensorflow keras pyaudio pyttsx3 pynput screenin
 ## Estructura del Proyecto
 
 El proyecto está organizado de la siguiente manera:
-
+```
 .
 ├── data/                         # Directorio de datos
 ├── models/                       # Directorio para guardar modelos entrenados
@@ -54,11 +54,11 @@ El proyecto está organizado de la siguiente manera:
 │   └── utils.py                  # Utilidades varias
 ├── README.md                     # Este archivo
 └── requirements.txt              # Archivo de requisitos
-
+```
 ## Preparación de Datos
 
 Para entrenar la red neuronal, necesitas un conjunto de datos de imágenes de rostros. Puedes usar datasets públicos o tus propios datos. Las imágenes deben estar organizadas en subdirectorios, cada uno representando una clase (persona). Ejemplo:
-
+```
 data/
 ├── person1/
 │   ├── image1.jpg
@@ -69,7 +69,7 @@ data/
 │   ├── image2.jpg
 │   └── ...
 └── ...
-
+```
 ## Entrenamiento del Modelo
 
 Para entrenar el modelo de reconocimiento facial, ejecuta el script de entrenamiento que se encuentra en deep_neural_network.py:
