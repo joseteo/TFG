@@ -8,7 +8,7 @@ print('Lista de personas: ', imagePaths)
 
 face_recognizer = cv2.face.EigenFaceRecognizer_create()
 
-face_recognizer.read('modeloReconocimientoFacial.xml')
+face_recognizer.read('Reconocimiento Facial/models/modeloReconocimientoFacial.xml')
 
 cap = cv2.VideoCapture(0)
 

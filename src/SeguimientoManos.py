@@ -1,6 +1,7 @@
 import math
 import cv2
 import mediapipe as mp
+import numpy as np
 import time
 
 class detectormanos():
@@ -77,10 +78,23 @@ class detectormanos():
 
         return length, frame, [x1, x2, y1, y2, cx, cy]
 
+def pintar_teseracto(frame, x, y, w, h):
+    # Dibujar un cubo azul del tamaño de la mano
+    start_point = (x, y)
+    end_point = (x + w, y + h)
+    color = (255, 0, 0)  # Azul en BGR
+    thickness = 2  # Grosor de las líneas
 
+    # Dibujar el cubo
+    frame = cv2.rectangle(frame, start_point, end_point, color, thickness)
+    return frame
+
+# Prueba de la función de pintar el teseracto
 def main():
     ptiempo = 0
     ctiempo = 0
+    global teseracto
+    teseracto = False
 
     cap = cv2.VideoCapture(0)
 
@@ -97,6 +111,10 @@ def main():
         ctiempo = time.time()
         fps = 1 / (ctiempo - ptiempo)
         ptiempo = ctiempo
+
+        if teseracto:
+            x, y, w, h = bbox
+            frame = pintar_teseracto(frame, x, y, w, h)
 
         cv2.putText(frame, str(int(fps)), (10, 70), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 255), 3)
 

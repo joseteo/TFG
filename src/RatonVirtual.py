@@ -4,6 +4,9 @@ import SeguimientoManos as sm
 from pynput.mouse import Controller, Button
 import screeninfo
 
+# Inicializar variables globales
+teseracto = False
+
 def process_hand(frame, anchocam=640, altocam=480, cuadro=100):
     # Inicializar variables
     sua = 5
@@ -45,28 +48,25 @@ def process_hand(frame, anchocam=640, altocam=480, cuadro=100):
                 cv2.circle(frame, (linea[4], linea[5]), 10, (0, 255, 0), cv2.FILLED)
                 mouse.click(Button.left, 1)
 
+        # Pintar el teseracto si se detectó la palabra "teseracto"
+        global teseracto
+        if teseracto:
+            x, y, w, h = bbox
+            frame = pintar_teseracto(frame, x, y, w, h)
+
     return frame
 
-# Ejemplo de uso en un archivo principal
-if __name__ == "__main__":
-    cap = cv2.VideoCapture(0)
-    cap.set(3, 640)
-    cap.set(4, 480)
+def pintar_teseracto(frame, x, y, w, h):
+    # Dibujar un cubo azul del tamaño de la mano
+    start_point = (x, y)
+    end_point = (x + w, y + h)
+    color = (255, 0, 0)  # Azul en BGR
+    thickness = 2  # Grosor de las líneas
 
-    while True:
-        ret, frame = cap.read()
-        if not ret:
-            print("No se puede abrir la cámara")
-            break
+    # Dibujar el cubo
+    frame = cv2.rectangle(frame, start_point, end_point, color, thickness)
+    return frame
 
-        frame = process_hand(frame)
-
-        cv2.imshow("Proyecto", frame)
-        if cv2.waitKey(1) == 27:
-            break
-
-    cap.release()
-    cv2.destroyAllWindows()
 
 
 

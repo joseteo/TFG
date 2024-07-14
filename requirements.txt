@@ -1,0 +1,8 @@
+numpy
+opencv-python
+tensorflow
+keras
+pyaudio
+pyttsx3
+pynput
+screeninfo

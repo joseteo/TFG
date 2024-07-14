@@ -3,7 +3,7 @@ import pyautogui
 from PIL import Image
 import platform
 
-path = 'C:\\Users\\joset\\PycharmProjects\\pythonProject\\assets\\result.png'
+path = '/assets/result.png'
 titles = pygetwindow.getAllTitles()
 
 # Aqui comprobamos si estamos en la arquitectura de systema Windows
