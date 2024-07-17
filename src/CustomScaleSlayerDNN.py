@@ -24,8 +24,8 @@ class CustomScaleLayer(tf.keras.layers.Layer):
 tf.keras.utils.get_custom_objects().update({'CustomScaleLayer': CustomScaleLayer})
 
 # Cargar el modelo entrenado y los nombres de las clases
-model = load_model('Reconocimiento Facial/models/face_recognition_model.h5', custom_objects={'CustomScaleLayer': CustomScaleLayer})
-class_names = np.load('Reconocimiento Facial/models/class_names.npy', allow_pickle=True)
+model = load_model('`src/FacialRecognition/models/face_recognition_model.h5', custom_objects={'CustomScaleLayer': CustomScaleLayer})
+class_names = np.load('src/FacialRecognition/models/class_names.npy', allow_pickle=True)
 
 # Función para preprocesar la imagen
 def preprocess_image(img):
@@ -61,7 +61,7 @@ while True:
             cv2.putText(frame, f'{predicted_name} ({confidence:.2f})', (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
         cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
 
-    cv2.imshow('Reconocimiento Facial', frame)
+    cv2.imshow('FacialRecognition', frame)
 
     if cv2.waitKey(1) == 27:  # Presiona 'Esc' para salir
         break

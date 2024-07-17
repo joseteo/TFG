@@ -4,11 +4,11 @@ import os
 from queue import Queue
 from tensorflow.keras.models import load_model
 import numpy as np
-from ReconocimientoVoz import process_voice
-from RatonVirtual import process_hand
+from VoiceRecognition import process_voice
+from VirtualMouse import process_hand
 import screeninfo
 from pynput.mouse import Controller, Button
-import SeguimientoManos as sm
+import HandsTracking as sm
 
 # Deshabilitar mensajes de advertencia de TensorFlow
 import tensorflow as tf
@@ -17,8 +17,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 tf.get_logger().setLevel('ERROR')
 
 # Cargar el modelo entrenado y los nombres de las clases
-model = load_model('Reconocimiento Facial/models/face_recognition_model.h5')
-class_names = np.load('Reconocimiento Facial/models/class_names.npy', allow_pickle=True)
+model = load_model('src/FacialRecognition/models/face_recognition_model.h5')
+class_names = np.load('src/FacialRecognition/models/class_names.npy', allow_pickle=True)
 
 # Inicializar variables globales
 teseracto = False
