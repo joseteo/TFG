@@ -4,6 +4,9 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv1D, MaxPooling1D, BatchNormalization, LSTM, Dense, Dropout
 import matplotlib.pyplot as plt
+import librosa
+from sklearn.preprocessing import LabelEncoder
+from tensorflow.keras.utils import to_categorical
 
 # Set random seed for reproducibility
 np.random.seed(42)
@@ -40,6 +43,49 @@ def create_voice_recognition_model(input_shape, num_classes):
     ])
 
     return model
+
+
+def preprocess_audio(file_path):
+    y, sr = librosa.load(file_path, sr=16000)
+    mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
+    mfccs = np.expand_dims(mfccs, axis=0)
+    return mfccs
+
+
+def capture_audio():
+    recognizer = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening...")
+        audio = recognizer.listen(source)
+    return audio
+
+
+# Load the pre-trained model
+def load_voice_recognition_model(model_path, input_shape, num_classes):
+    model = create_voice_recognition_model(input_shape, num_classes)
+    model.load_weights(model_path)
+    return model
+
+
+# Define paths
+model_path = os.path.join('VoiceRecognition', 'models', 'voice_recognition_model.keras')
+input_shape = (100, 13)  # This should match the input shape used during training
+num_classes = 10  # This should match the number of classes used during training
+
+# Load the model
+voice_model = load_voice_recognition_model(model_path, input_shape, num_classes)
+
+# Label Encoder
+label_encoder = LabelEncoder()
+label_encoder.classes_ = np.load('VoiceRecognition/models/classes.npy', allow_pickle=True)
+
+
+def recognize_command(model, audio):
+    mfccs = preprocess_audio(audio)
+    predictions = model.predict(mfccs)
+    predicted_class = np.argmax(predictions)
+    predicted_label = label_encoder.inverse_transform([predicted_class])[0]
+    return predicted_label
 
 
 # Generate dummy data (replace this with your actual data loading and preprocessing)
