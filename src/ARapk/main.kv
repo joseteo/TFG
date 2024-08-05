@@ -1,0 +1,17 @@
+#:kivy 1.0
+<MainLayout>:
+    orientation: 'vertical'
+    video_feed: video_feed
+    status_label: status_label
+
+    Image:
+        id: video_feed
+        size_hint: 1, 0.9
+
+    Label:
+        id: status_label
+        text: "Initializing..."
+        size_hint: 1, 0.1
+        halign: "center"
+        valign: "middle"
+        text_size: self.size
