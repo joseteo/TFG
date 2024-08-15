@@ -37,6 +37,43 @@ def overlay_image(background, overlay, x, y):
 
     return background
 
+def capture_window_continuous(window_title):
+    # Find the window with the given title
+    window = gw.getWindowsWithTitle(window_title)[0]
+    left, top = window.topleft
+    right, bottom = window.bottomright
+
+    assets_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'assets', 'cursor-icon.png')
+    mouse_cursor_img = load_mouse_cursor_image(assets_dir, 15, 20)
+
+    with mss.mss() as sct:
+        while True:
+            # Define the area to capture
+            monitor = {"top": top, "left": left, "width": right - left, "height": bottom - top}
+            # Capture the screen
+            sct_img = sct.grab(monitor)
+            # Convert the image to a format that OpenCV can use
+            img = np.array(sct_img)
+            img = cv2.cvtColor(img, cv2.COLOR_BGRA2BGR)
+
+            # Get the mouse position
+            mouse_x, mouse_y = pyautogui.position()
+
+            # Overlay the mouse cursor on the image
+            if left <= mouse_x <= right and top <= mouse_y <= bottom:
+                img = overlay_image(img, mouse_cursor_img, mouse_x - left, mouse_y - top)
+
+            # Resize the image to improve performance
+            img = cv2.resize(img, (right - left, bottom - top), interpolation=cv2.INTER_LINEAR)
+
+            # Return the image frame
+            yield img
+
+            # Exit the loop if the 'q' key is pressed
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+
+    cv2.destroyAllWindows()
 
 def capture_and_stream_window(window_title, sender):
     # Find the window with the given title
