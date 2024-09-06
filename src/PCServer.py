@@ -5,18 +5,20 @@ import cv2.aruco as aruco
 import mss
 from CaptureWindow import capture_window_continuous, overlay_image
 
+
 def calculate_center_of_markers(aruco_corners):
     """
     Calcula el centro de los marcadores visibles utilizando el promedio de sus coordenadas.
     """
     if len(aruco_corners) == 0:
         return None
-    
+
     all_corners = np.concatenate(aruco_corners, axis=1)
     center_x = np.mean(all_corners[0, :, 0])
     center_y = np.mean(all_corners[0, :, 1])
-    
+
     return int(center_x), int(center_y)
+
 
 def calculate_average_marker_width(aruco_corners):
     """
@@ -26,8 +28,9 @@ def calculate_average_marker_width(aruco_corners):
     for corners in aruco_corners:
         width = np.linalg.norm(corners[0][0] - corners[0][1])  # Calcula el ancho del marcador
         widths.append(width)
-    
+
     return np.mean(widths)
+
 
 def process_and_merge_frames(client_frame, pc_frame, aruco_corners):
     # Calcular el centro de los marcadores visibles
@@ -37,7 +40,7 @@ def process_and_merge_frames(client_frame, pc_frame, aruco_corners):
 
     # Calcular el ancho promedio de los marcadores visibles
     avg_marker_width = calculate_average_marker_width(aruco_corners)
-    
+
     # Redimensionar la captura de pantalla del PC al 80% del ancho promedio de los marcadores
     scale_factor = avg_marker_width * 0.8 / pc_frame.shape[1]
     new_width = int(pc_frame.shape[1] * scale_factor)
@@ -53,6 +56,7 @@ def process_and_merge_frames(client_frame, pc_frame, aruco_corners):
     output_frame = overlay_image(output_frame, resized_pc_frame, top_left_x, top_left_y)
 
     return output_frame
+
 
 def handle_client_connection(connection, window_title):
     try:
@@ -83,6 +87,7 @@ def handle_client_connection(connection, window_title):
     finally:
         connection.close()
 
+
 def run_server():
     # Configuración del servidor
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -100,6 +105,7 @@ def run_server():
 
     server_socket.close()
 
+
 def receive_frames(host, send_port, receive_port):
     server_socket_send = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket_send.bind((host, send_port))
@@ -113,7 +119,7 @@ def receive_frames(host, send_port, receive_port):
     connection_receive, client_address_receive = server_socket_receive.accept()
     connection_receive = connection_receive.makefile('wb')
 
-    aruco_dict = aruco.getPredefinedDictionary(aruco.DICT_6X6_250)
+    aruco_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_100)
     parameters = aruco.DetectorParameters()
 
     with mss.mss() as sct:

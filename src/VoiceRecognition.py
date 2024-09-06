@@ -1,4 +1,4 @@
-from VoiceRecognition_CNN import VoiceRecognitionCNN
+from VoiceRecognition_LSTM import VoiceRecognitionCNN
 import speech_recognition as sr
 
 class VoiceRecognitionSystem:

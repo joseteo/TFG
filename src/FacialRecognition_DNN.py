@@ -3,7 +3,7 @@ import numpy as np
 from tensorflow.keras.models import load_model
 
 # Cargar el modelo entrenado y los nombres de las clases
-model = load_model('src/FacialRecognition/models/face_recognition_model.h5')  # Carga el modelo de reconocimiento facial entrenado
+model = load_model('src/FacialRecognition/models/face_recognition_model.keras')  # Carga el modelo de reconocimiento facial entrenado
 class_names = np.load('src/FacialRecognition/models/class_names.npy', allow_pickle=True)  # Carga los nombres de las clases (nombres de las personas) desde un archivo
 
 # Función para preprocesar la imagen
